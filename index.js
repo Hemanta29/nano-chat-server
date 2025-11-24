@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { Server } from "socket.io";
 import http from "http";
-import cors from "cors";
+// import cors from "cors";
 import jwt from "jsonwebtoken";
 
 import authRoutes from "./routes/auth.route.js";
@@ -18,17 +18,16 @@ const port = process.env.PORT || 3000;
 const mongoURI = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const app = express();
 
-const corsOptions = {
-  origin: '*', // Replace with your actual frontend URL (e.g., https://your-frontend.vercel.app)
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true, // If your frontend needs to send cookies/credentials
-  optionsSuccessStatus: 200,
-};
+// Enable CORS for all origins, methods, and headers
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Or specify a specific origin like 'http://localhost:3000'
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
 
-app.use(cors(corsOptions));
 // Middleware
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
