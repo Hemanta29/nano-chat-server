@@ -18,6 +18,15 @@ const port = process.env.PORT || 3000;
 const mongoURI = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const app = express();
 
+const corsOptions = {
+  origin: '*', // Replace with your actual frontend URL (e.g., https://your-frontend.vercel.app)
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true, // If your frontend needs to send cookies/credentials
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 // Middleware
 app.use(cors());
 app.use(express.json());
