@@ -31,6 +31,10 @@ const userSchema = new mongoose.Schema(
         },
         location: {
             type: String,
+        },
+        lastMessage:{
+            type: String,
+            default: ''
         }
     }
 );
