@@ -10,7 +10,9 @@ export const getAllUsers = async (req, res) => {
     const latestMessage = await Message.findOne({
       $or: [{ sender: user._id }, { receiver: user._id }]
     })
-      .sort({ createdAt: -1 })
+      .sort({ createdAt: -1 });
+      // .populate('sender', 'username displayName')
+      // .populate('receiver', 'username displayName');
 
     user._doc.lastMessage = latestMessage;
     // console.log(user);
